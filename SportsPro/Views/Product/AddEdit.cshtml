@@ -1,0 +1,60 @@
+﻿@model Product
+@{
+    ViewData["Title"] = ViewData["Title"] ?? "Add/Edit Product";
+}
+
+<h1>@((ViewBag.Action =="Add") ? "Add Product" : "Edit Product")</h1>
+
+<h1>@ViewData["Title"]</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <p class="text-danger">Please correct the following errors:</p>
+    <ul class="text-danger">
+        @foreach (var modelState in ViewData.ModelState.Values)
+        {
+            foreach (var error in modelState.Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        }
+    </ul>
+}
+
+<form asp-controller="Product" 
+      asp-action="@((ViewBag.Action == "Add") ? "Add" : "Edit")" method="post" class="form-horizontal mt-2">
+
+    <div class="form-group row mt-2">
+        <label asp-for="ProductCode" class="control-label">Code</label>
+        <div>
+            <input asp-for="ProductCode" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row mt-2">
+        <label asp-for="Name" class="control-label">Name</label>
+        <div>
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="Price" class="control-label">Yearly Price</label>
+        <div>
+            <input asp-for="Price" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row mt-2">
+        <label asp-for="ReleaseDate">Release Date</label>
+        <div>
+            <input asp-for="ReleaseDate" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+ 
+    <a href="@Url.Action("List", "Product")" class="btn btn-secondary mt-2">Cancel</a>
+
+
+</form>
+
